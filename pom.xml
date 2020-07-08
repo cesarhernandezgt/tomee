@@ -594,6 +594,11 @@
         <module>tomee</module>
       </modules>
       <repositories>
+          <repository>
+              <id>tomitribe-all</id>
+              <name>Tomitribe Repository</name>
+              <url>https://repository.tomitribe.com/content/groups/tomitribe/</url>
+          </repository>
         <repository>
           <snapshots>
             <enabled>true</enabled>
@@ -850,6 +855,11 @@
     </profile>
   </profiles>
   <repositories>
+      <repository>
+          <id>tomitribe-all</id>
+          <name>Tomitribe Repository</name>
+          <url>https://repository.tomitribe.com/content/groups/tomitribe/</url>
+      </repository>
     <repository>
       <id>apache-snapshots</id>
       <name>Apache Snapshots Repository</name>
@@ -896,6 +906,17 @@
     </repository>
   </repositories>
   <pluginRepositories>
+      <pluginRepository>
+          <id>tomitribe-all</id>
+          <name>Tomitribe All</name>
+          <url>https://repository.tomitribe.com/content/groups/tomitribe/</url>
+          <snapshots>
+              <enabled>true</enabled>
+          </snapshots>
+          <releases>
+              <enabled>true</enabled>
+          </releases>
+      </pluginRepository>
     <pluginRepository>
       <id>apache-m2-snapshot</id>
       <name>Apache Software Foundation M2 Snapshot Repository</name>
