@@ -48,6 +48,8 @@ public class MVCTest {
 
     @Deployment
     public static WebArchive createDeployment() {
+        Maven.configureResolver().fromFile("src/test/resources/settings.xml");
+
         File[] files = Maven.resolver()
                             .loadPomFromFile("pom.xml")
                             .importRuntimeDependencies()
