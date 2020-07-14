@@ -48,19 +48,13 @@ public class MVCTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        File[] files = Maven.resolver()
-                            .loadPomFromFile("pom.xml")
-                            .importRuntimeDependencies()
-                            .resolve()
-                            .withTransitivity()
-                            .asFile();
-
         return ShrinkWrap.create(WebArchive.class, "test.war")
                          .addPackages(true, "org.superbiz.mvc")
-                         .addAsLibraries(files)
-                         .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+                         .addAsLibraries(Maven.configureResolver().fromFile("src/main/resources/test-settings.xml").loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile())
                          .addAsWebInfResource(new File("src/main/webapp/WEB-INF/web.xml"), "/web.xml")
-                         .addAsWebInfResource(new File("src/main/webapp/WEB-INF/views/hello.jsp"), "/views/hello.jsp");
+                         .addAsWebInfResource(new File("src/main/webapp/WEB-INF/views/hello.jsp"), "/views/hello.jsp")
+                         .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+
     }
 
     @Test
