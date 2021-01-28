@@ -2190,7 +2190,11 @@ public class AutoConfig implements DynamicDeployer, JndiConstants {
             }
         }
 
-        configFactory.install(resourceInfo);
+        try {
+            configFactory.install(resourceInfo);
+        } catch (Exception e) {
+            logger.info("resourceInfo.properties is {1}", resourceInfo.properties.toString());
+        }
         return resourceInfo.id;
     }
 
