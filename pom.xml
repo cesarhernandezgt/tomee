@@ -181,7 +181,7 @@
     <version.microprofile.opentracing>1.1.2</version.microprofile.opentracing>
     <version.microprofile.rest-client>1.3.3</version.microprofile.rest-client>
 
-    <version.io.opentracing>0.31.0</version.io.opentracing>
+    <version.io.opentracing>0.33.0</version.io.opentracing>
 
     <!-- Geronimo Impl. -->
     <version.microprofile.impl.config>1.2.1</version.microprofile.impl.config>
