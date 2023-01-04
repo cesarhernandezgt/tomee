@@ -33,7 +33,7 @@
         <jdk>9</jdk>
       </activation>
       <properties>
-        <version.groovy>2.5.0-alpha-1</version.groovy>
+        <version.groovy>3.0.14</version.groovy>
       </properties>
     </profile>
     <profile>
