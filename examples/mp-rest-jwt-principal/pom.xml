@@ -26,7 +26,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <tomee.version>10.0.0-SNAPSHOT</tomee.version>
-    <junit.version>4.23</junit.version>
+    <junit.version>7.9</junit.version>
     <arquillian-bom.version>1.7.0.Alpha10</arquillian-bom.version>
   </properties>
   <build>
