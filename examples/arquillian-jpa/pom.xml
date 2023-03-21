@@ -17,7 +17,7 @@ language governing permissions and limitations under the License. -->
   <version>8.0.14-TT.8-SNAPSHOT</version>
 
   <properties>
-    <arquillian_universe.version>1.2.0.1</arquillian_universe.version>
+    <arquillian_universe.version>1.5.0.0</arquillian_universe.version>
     <tomee.version>8.0.14-TT.8-SNAPSHOT</tomee.version>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
