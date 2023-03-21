@@ -29,7 +29,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.eclipselink>2.7.11</version.eclipselink>
     <tomee.version>8.0.14-TT.8-SNAPSHOT</tomee.version>
-    <arquillian_universe.version>1.2.0.1</arquillian_universe.version>
+    <arquillian_universe.version>1.5.0.0</arquillian_universe.version>
   </properties>
 
   <dependencies>
