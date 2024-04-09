@@ -16,12 +16,9 @@
  */
 package org.apache.tomee.microprofile;
 
-import io.smallrye.config.SmallRyeConfigProviderResolver;
 import io.smallrye.opentracing.SmallRyeTracingDynamicFeature;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletRegistration;
-import org.apache.openejb.AppContext;
-import org.apache.openejb.assembler.classic.AppInfo;
 import org.apache.openejb.assembler.classic.WebAppInfo;
 import org.apache.openejb.config.NewLoaderLogic;
 import org.apache.openejb.config.event.EnhanceScannableUrlsEvent;
@@ -30,16 +27,13 @@ import org.apache.openejb.loader.SystemInstance;
 import org.apache.openejb.observer.Observes;
 import org.apache.openejb.observer.event.BeforeEvent;
 import org.apache.openejb.server.cxf.rs.event.ExtensionProviderRegistration;
-import org.apache.openejb.spi.ContainerSystem;
 import org.apache.openejb.util.LogCategory;
 import org.apache.openejb.util.Logger;
 import org.apache.tomee.catalina.event.AfterApplicationCreated;
-import org.apache.tomee.catalina.event.BeforeApplicationDestroyed;
+import org.apache.tomee.installer.Paths;
 import org.apache.tomee.microprofile.health.MicroProfileHealthChecksEndpoint;
 import org.apache.tomee.microprofile.openapi.MicroProfileOpenApiRegistration;
 import org.apache.tomee.microprofile.opentracing.MicroProfileOpenTracingExceptionMapper;
-import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.spi.ConfigProviderResolver;
 import org.jboss.jandex.Index;
 import org.jboss.jandex.Indexer;
 
@@ -48,6 +42,7 @@ import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.Collection;
@@ -62,6 +57,10 @@ import java.util.stream.Stream;
 public class TomEEMicroProfileListener {
 
     private static final Logger LOGGER = Logger.getInstance(LogCategory.OPENEJB.createChild("tomcat"), TomEEMicroProfileListener.class);
+
+    private static final String[] MICROPROFILE_LIBS_IMPLS_PREFIXES = new String[]{
+        "mp-common"
+    };
 
     private static final String[] MICROPROFILE_EXTENSIONS = new String[]{
         "org.apache.tomee.microprofile.jwt.cdi.MPJWTCDIExtension",
@@ -99,8 +98,17 @@ public class TomEEMicroProfileListener {
             }
         }
 
-        // Add mp-common jar so classes like MicroProfileHealthChecksEndpoint are scanned as well
-        containerUrls.add(getClass().getProtectionDomain().getCodeSource().getLocation());
+        final Paths paths = new Paths(new File(System.getProperty("openejb.home")));
+        for (final String prefix : MICROPROFILE_LIBS_IMPLS_PREFIXES) {
+            final File file = paths.findTomEELibJar(prefix);
+            if (file != null) {
+                try {
+                    containerUrls.add(file.toURI().toURL());
+                } catch (final MalformedURLException e) {
+                    // ignored
+                }
+            }
+        }
 
         SystemInstance.get().setProperty("openejb.cxf-rs.cache-application", "false");
     }
@@ -136,21 +144,6 @@ public class TomEEMicroProfileListener {
             throw new IllegalStateException("Can't build Jandex index for application " + webApp.contextRoot, e);
         }
 
-    }
-
-    public void processCleanup(@Observes final BeforeEvent<BeforeApplicationDestroyed> beforeApplicationDestroyed) {
-        final AppInfo appInfo = beforeApplicationDestroyed.getEvent().getApp();
-        final ContainerSystem containerSystem = SystemInstance.get().getComponent(ContainerSystem.class);
-        final AppContext appContext = containerSystem.getAppContext(appInfo.appId);
-
-        final ClassLoader appClassLoader = appContext.getClassLoader();
-        final ConfigProviderResolver instance = ConfigProviderResolver.instance();
-
-        if (SmallRyeConfigProviderResolver.class.isInstance(instance)) {
-            SmallRyeConfigProviderResolver srcpr = SmallRyeConfigProviderResolver.class.cast(instance);
-            final Config config = srcpr.getConfig(appClassLoader);
-            srcpr.releaseConfig(config);
-        }
     }
 
     public void registerMicroProfileJaxRsProviders(@Observes final ExtensionProviderRegistration extensionProviderRegistration) {
