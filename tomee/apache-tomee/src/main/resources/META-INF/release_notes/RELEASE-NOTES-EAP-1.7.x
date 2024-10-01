@@ -1,10 +1,8 @@
-= TomEE EAP 1.7.6-TT.42
-
-=== Changes in TomEE EAP 1.7.6-TT.42
-* Update to Tomcat 7.0.109-TT.11 to mitigate CVE-2024-38286
-* Updated to Commons Collections 3.2.2-TT.1 to mitigate sonatype-2024-3350
+= TomEE EAP 1.7.6-TT.41
 
 === Changes in TomEE EAP 1.7.6-TT.41
+* Update to Tomcat 7.0.109-TT.11 to mitigate CVE-2024-38286
+* Updated to Commons Collections 3.2.2-TT.1 to mitigate sonatype-2024-3350
 * Update to Santuario xmlsec 1.5.9-TT.2 to mitigate CVE-2023-44483
 
 === Changes in TomEE EAP 1.7.6-TT.40
