@@ -2,6 +2,8 @@
 
 === Changes in TomEE EAP 7.1.5-TT.27
 * Update to Santuario xmlsec 2.0.11-TT.4 to mitigate CVE-2023-44483
+* Update to Tomcat 8.5.100-TT.3 to mitigate CVE-2024-38286
+* Updated to Commons Collections 3.2.2-TT.1 to mitigate sonatype-2024-3350
 
 === Changes in TomEE EAP 7.1.5-TT.26
 * Update to Tomcat 8.5.100-TT.2 to Mitigate CVE-2024-34750
