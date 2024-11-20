@@ -1,4 +1,8 @@
-= TomEE EAP 7.1.5-TT.27
+= TomEE EAP 7.1.5-TT.28
+
+=== Changes in TomEE EAP 7.1.5-TT.28
+Update Geronimo Javamail to mitigate CVE-2024-21742
+
 
 === Changes in TomEE EAP 7.1.5-TT.27
 * Update to Santuario xmlsec 2.0.11-TT.4 to mitigate CVE-2023-44483
