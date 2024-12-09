@@ -1,4 +1,7 @@
-= TomEE EAP 1.7.6-TT.42
+= TomEE EAP 1.7.6-TT.43
+
+=== Changes in TomEE EAP 1.7.6-TT.43
+* Update to Tomcat 7.0.109-TT.12
 
 === Changes in TomEE EAP 1.7.6-TT.42
 * Update Geronimo Javamail to mitigate CVE-2024-21742
